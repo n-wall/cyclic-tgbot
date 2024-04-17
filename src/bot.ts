@@ -10,7 +10,7 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 
 // Handle the /yo command to greet the user
 bot.command("yo", (ctx) => ctx.reply(`Yo ${ctx.from?.username}`));
-bot.command("hi", (ctx) => ctx.reply(`Hello ${ctx.from?.username}`));
+bot.command("hi", (ctx) => ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx}`));
 
 // Handle the /effect command to apply text effects using an inline keyboard
 type Effect = { code: TextEffectVariant; label: string };
