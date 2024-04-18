@@ -12,7 +12,7 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 bot.command("yo", (ctx) => ctx.reply(`Yo ${ctx.from?.username}`));
 // object..getOwnPropertyNames()
 // https://grammy.dev/guide/basics
-bot.command("hi", (ctx) => ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx.message.text}`+"\n"+  ctx.msg.message_id));
+bot.command("hi", (ctx) => ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx.msg.text}`+"\n"+  ctx.msg.message_id));
 
 // Handle the /effect command to apply text effects using an inline keyboard
 type Effect = { code: TextEffectVariant; label: string };
