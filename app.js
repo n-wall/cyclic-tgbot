@@ -1,12 +1,15 @@
 const express = require('express')
 const path = require("path");
+const { webhookCallback} = require("grammy");
+
 const app = express()
+const bot = require('./tgbot')
 
 // #############################################################################
 // Logs all request paths and method
 app.use(function (req, res, next) {
-  res.set('x-timestamp', Date.now())
-  res.set('x-powered-by', 'cyclic.sh')
+  //res.set('x-timestamp', Date.now())
+  //res.set('x-powered-by', 'cyclic.sh')
   console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
   next();
 });
@@ -23,6 +26,10 @@ var options = {
   redirect: false
 }
 app.use(express.static('public', options))
+
+app.use(express.json()); // 解析 JSON 请求
+// 处理 tgbot 请求。
+app.use("/tghook", webhookCallback(bot, "express"));
 
 // #############################################################################
 // Catch all handler for all other request.
