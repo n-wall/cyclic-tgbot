@@ -1,5 +1,5 @@
 const express = require('express')
-const path = require("path");
+//const path = require("path");
 const { webhookCallback} = require("grammy");
 
 const app = express()
@@ -29,7 +29,11 @@ app.use(express.static('public', options))
 
 app.use(express.json()); // 解析 JSON 请求
 // 处理 tgbot 请求。
-app.use("/tghook", webhookCallback(bot, "express"));
+if (process.env.SECRET_TOKEN){
+  app.use("/tghook", webhookCallback(bot, "express", {secretToken: process.env.SECRET_TOKEN}));
+} else {
+  app.use("/tghook", webhookCallback(bot, "express"));
+}
 
 // #############################################################################
 // Catch all handler for all other request.
