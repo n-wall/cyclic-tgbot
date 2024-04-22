@@ -35,6 +35,10 @@ if (process.env.SECRET_TOKEN){
   app.use("/tghook", webhookCallback(bot, "express"));
 }
 
+// latex equations to picture
+var router = require("./latex/router")
+app.use('/equ2pic',router) //router路由对象中的路由都会匹配到"/home"路由后面
+
 // #############################################################################
 // Catch all handler for all other request.
 app.use('*', (req,res) => {
