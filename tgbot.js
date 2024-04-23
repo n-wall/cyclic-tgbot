@@ -36,6 +36,11 @@ const replyWithIntro = (ctx) =>
 bot.command("start", replyWithIntro);
 // bot.command("start", (ctx) => ctx.reply("Welcome! Up and running."));
 
+// 上传了一个文件
+bot.on(":file", (ctx) =>{
+  ctx.reply("file: "+ctx.msg.file.file_id)
+});
+
 // 处理其他的消息。
 bot.on("message", (ctx) => {
   //console.log("got another message");

@@ -46,6 +46,7 @@ router.post('*', (req, res) => {
 })
 
 
+var routeurl="/equ2pic"
 var html = `
 <html>
 <head>
@@ -64,11 +65,12 @@ var html = `
    <p> 本服务将latex公式变成svg, png 或 jpeg 格式的图片 </p>
    <p> 服务也可以使用 GET 的方式 
    <ul>
-     <li>SVG图片： GET /latex2pic/{formula} </li>
-     <li>PNG图片： GET /latex2pic/png/{formula}</li>
-     <li>Jpeg图片： GET /latex2pic/jpeg/{formula}</li>
-     <li>SVG path数据： GET /latex2pic/2path/{text}</li>
-     <li>SVG 数据： GET /latex2pic/2svg/{text}</li>
+     <li>SVG图片： GET ${routeurl}/{formula} </li>
+     <li>PNG图片： GET ${routeurl}/png/{formula}</li>
+     <li>Jpeg图片： GET ${routeurl}/jpeg/{formula}</li>
+     <li>SVG path d数据： GET ${routeurl}/2path/{text} <br/>
+         返回的数据放置在 svg 文件中， &lt; path id="u53ea" d="[数据]" &gt;
+     </li>
    </ul>
    其中{formula}表示Latex公式， {text}表示一般文本
    </p>
@@ -117,6 +119,21 @@ router.get("/jpeg/*", (req,res)=>{
       res.end(result.body)
     }
   })
+})
+
+// 2path/ 用于得到汉字的svg path d属性
+router.get("/2path/:text", (req,res)=>{
+  /*res.json({
+    path: req.path,
+    query: req.query,
+    params: req.params
+  })
+  .end() // */
+  text2d(req.params.text, 884, (err, result)=>{
+     res.writeHead(result.statusCode, result.headers)
+     res.end(result.body)
+  })
+
 })
 
 router.get("/*", (req,res)=>{

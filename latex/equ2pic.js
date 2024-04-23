@@ -263,7 +263,7 @@ var equ2pic = function(formula, option, callback){
 // callback(err, result)
 var text2d = function(text, fontsize, callback){
   const TextToSVG = require('text-to-svg');
-  const textToSVG = TextToSVG.loadSync(__dirname+'/sc.otf'); // simplified chinese
+  const textToSVG = TextToSVG.loadSync(__dirname+'/sc.otf'); // simplified chinese fonts
 
   //var attributes = {fill: 'red', stroke: 'black'};
   var attributes = {};
@@ -296,7 +296,7 @@ var equ = require('./equ2pic')
 var equ2pic=equ.parse;
 var text2d=equ.path
 
-usage: 把 formula 变成
+usage: 把 formula(latex equation) 变成 图片 (png or jpg or svg)
  parse(formula, {format: "png" or "jpg" or null, height: 300}, (err, result)=>{})
  其中 formula 是公式, 
 result: {
@@ -309,5 +309,6 @@ result: {
       'body': e.message,
 }
 
-  path(text, fontsize, (error, result)=>{})
+ 把 text 中的文字按sc.otf字体，转换为svg。输出  svg path d 的值
+ path(text, fontsize, (error, result)=>{})
 */
