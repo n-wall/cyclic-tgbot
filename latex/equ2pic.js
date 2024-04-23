@@ -175,6 +175,8 @@ var equ2pic = function(formula, option, callback){
 		},
 		'isBase64Encoded': true,
 		'body': buffer.toString('base64'),
+		'buffer': buffer,
+		'svg': svgBuf,
 	      }
 	      callback(null, output)
 	    })
@@ -188,6 +190,8 @@ var equ2pic = function(formula, option, callback){
 		},
 		'isBase64Encoded': false,
 		'body': err.message,
+		'buffer': null,
+		'svg': svgBuf,
 	      }
 	      callback(null, output)
 	    });
@@ -208,6 +212,8 @@ var equ2pic = function(formula, option, callback){
 		},
 		'isBase64Encoded': true,
 		'body': buffer.toString('base64'),
+		'buffer': buffer,
+		'svg': svgBuf,
 	      }
 	      callback(null, output)
 	    })
@@ -221,6 +227,8 @@ var equ2pic = function(formula, option, callback){
 		},
 		'isBase64Encoded': false,
 		'body': err.message,
+		'buffer': null,
+		'svg': svgBuf,
 	      }
 	      callback(null, output)
 	    });
@@ -253,7 +261,7 @@ var equ2pic = function(formula, option, callback){
       'isBase64Encoded': false,
       'body': e.message,
     }
-    callback(null, output)
+    callback(1, output)
     //response.end(e.message)
   });
 }

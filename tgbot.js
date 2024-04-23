@@ -17,6 +17,26 @@ bot.command("hi", (ctx) => {
   ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx.msg.text}`+"\n"+  ctx.msg.message_id)
 });
 
+bot.command("latex", (ctx) => {
+    formula=ctx.msg.text.slice(6)
+    ctx.reply(`Hello ${ctx.from?.username} , {ctx.msg.message_id} \n`
+	      +`\n ${formula}`+"\n")
+    var latex = require('./latex/equ2pic')
+    var equ2pic=latex.parse;
+    equ2pic(formula, {format: 'png', height: 100},
+	    (err, result)=>{
+		if(err){
+		    ctx.reply(`Error: ${result.body}`)
+		} else {
+		    if(result.buffer){ // png file
+			ctx.replyWithPhoto(new InputFile(result.buffer, "equ.png"), {caption: 'latex to png'})
+		    } else { // svg file
+			ctx.replyWithDocument(new InputFile(result.body, "equ.svg"), {caption: 'latex to svg'})
+		    }
+		}
+	    })
+});
+
 
 // 处理 /start 命令。
 
