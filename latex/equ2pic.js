@@ -165,6 +165,8 @@ var equ2pic = function(formula, option, callback){
 		      background: {r: 255, g: 255, b: 0, alpha: 0.5} })
 	    .png()
 	    .toBuffer()
+	  // .then( ({ buffer, info }) => {...}
+	  // info 中包含 width, height, size 等信息
 	    .then( buffer => {
 	      output = {
 		'statusCode': 200,
