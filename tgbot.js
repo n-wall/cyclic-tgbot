@@ -38,8 +38,10 @@ bot.command("start", replyWithIntro);
 
 // 上传了一个文件
 bot.on(":file", (ctx) =>{
-  ctx.reply(`file: ${ctx.msg.document.file_id}
+  ctx.reply(JSON.stringify(ctx.msg, null, "  "))
+/*  ctx.reply(`file: ${ctx.msg.document.file_id}
 file name: ${ctx.msg.document.file_name}`)
+//*/
 });
 
 // 处理其他的消息。
