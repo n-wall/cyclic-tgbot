@@ -19,8 +19,8 @@ bot.command("hi", (ctx) => {
 
 bot.command("latex", (ctx) => {
     formula=ctx.msg.text.slice(6)
-    ctx.reply(`Hello ${ctx.from?.username} , {ctx.msg.message_id} \n`
-	      +`\n ${formula}`+"\n")
+    console.log(`Hello ${ctx.from?.username} , ${ctx.msg.message_id} \n`
+	      +`\n latex fomula:  ${formula}`+"\n")
     var latex = require('./latex/equ2pic')
     var equ2pic=latex.parse;
     equ2pic(formula, {format: 'png', height: 100},
@@ -29,9 +29,9 @@ bot.command("latex", (ctx) => {
 		    ctx.reply(`Error: ${result.body}`)
 		} else {
 		    if(result.buffer){ // png file
-			ctx.replyWithPhoto(new InputFile(result.buffer, "equ.png"), {caption: 'latex to png'})
+			ctx.replyWithPhoto(new InputFile(result.buffer, "equ.png"), {caption: `Hello ${ctx.from?.username} , ${ctx.msg.message_id} \n`})
 		    } else { // svg file
-			ctx.replyWithDocument(new InputFile(result.body, "equ.svg"), {caption: 'latex to svg'})
+			ctx.replyWithDocument(new InputFile(result.body, "equ.svg"), {caption: `Hello ${ctx.from?.username} , ${ctx.msg.message_id} \n`})
 		    }
 		}
 	    })
