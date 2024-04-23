@@ -13,7 +13,9 @@ const bot = new Bot(process.env.TELEGRAM_TOKEN || tgtoken); // <-- 把你的 bot
 bot.command("yo", (ctx) => ctx.reply(`Yo ${ctx.from?.username}`));
 // object..getOwnPropertyNames()
 // https://grammy.dev/guide/basics
-bot.command("hi", (ctx) => ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx.msg.text}`+"\n"+  ctx.msg.message_id));
+bot.command("hi", (ctx) => {
+  ctx.reply(`Hello ${ctx.from?.username}`+`\n ${ctx.msg.text}`+"\n"+  ctx.msg.message_id)
+});
 
 
 // 处理 /start 命令。
@@ -36,7 +38,16 @@ const replyWithIntro = (ctx) =>
 bot.command("start", replyWithIntro);
 // bot.command("start", (ctx) => ctx.reply("Welcome! Up and running."));
 
-// 上传了一个文件
+bot.on(":audio", (ctx) =>{
+  var ids=`[${ctx.msg.message_id}, ${ctx.msg.chat.id}]\n`
+  var mp3=ctx.msg.audio
+  var audinfo=`时长: ${mp3.duration} \n 歌名: ${mp3.title} 
+fileID: ${mp3.file_id}
+文件名: ${mp3.file_name}`
+  ctx.reply(ids+audinfo)
+})
+
+// 消息中包含了一个文件，消息种类中有: phpto, document, video, audio 等
 bot.on(":file", (ctx) =>{
   ctx.reply(JSON.stringify(ctx.msg, null, "  "))
 /*  ctx.reply(`file: ${ctx.msg.document.file_id}
