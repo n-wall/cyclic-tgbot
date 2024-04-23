@@ -1,6 +1,6 @@
 // telegram bot by grammy
 
-const { Bot } = require("grammy");
+const { Bot, InputFile } = require("grammy");
 
 // 创建一个 `Bot` 类的实例，并将你的 bot token 传给它。
 const tgtoken="telegram.bot.token";
