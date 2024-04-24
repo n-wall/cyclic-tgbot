@@ -159,6 +159,7 @@ var equ2pic = function(formula, option, callback){
 	  height=option.height
 	}
 	var svg2png = require("sharp");
+	//switch(option.format){
 	if(option.format=='png'){
 	  svg2png(Buffer.from(svgBuffer))
 	    .resize({ height: height,
@@ -197,6 +198,18 @@ var equ2pic = function(formula, option, callback){
 	      }
 	      callback(null, output)
 	    });
+	} else if (option.format=='svg'){
+	  // output svg file
+	  output = {
+	    'statusCode': 200,
+	    'headers':
+	    {
+	      'Content-Type': 'image/svg+xml'
+	    },
+	    'isBase64Encoded': false,
+	    'body': svgBuffer,
+	  }
+	  callback(null, output)
 	} else {
 	  // save jpeg file
 	  svg2png(Buffer.from(svgBuffer))

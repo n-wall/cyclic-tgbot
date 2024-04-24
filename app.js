@@ -16,12 +16,12 @@ app.use(function (req, res, next) {
 });
 
 // #############################################################################
-// This configures static hosting for files in /public that have the extensions
-// listed in the array.
+// 有如下后辍名的文件作为静态文件，在public目录下查找
+// 如 xxx.xxx.com/a/main.css 会找 public/a/main.css 文件
 var options = {
   dotfiles: 'ignore',
   etag: false,
-  extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
+  extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg','gif'],
   index: ['index.html'],
   maxAge: '1m',
   redirect: false
@@ -38,7 +38,7 @@ if (process.env.SECRET_TOKEN){
 
 // latex equations to picture
 var router = require("./latex/router")
-app.use('/equ2pic',router) //router路由对象中的路由都会匹配到"/home"路由后面
+app.use('/equ2pic',router) //router路由对象中的路由都会匹配到"/equ2pic"路由后面
 
 // #############################################################################
 // Catch all handler for all other request.

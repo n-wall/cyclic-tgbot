@@ -75,7 +75,7 @@ var html = `
    其中{formula}表示Latex公式， {text}表示一般文本
    </p>
    <p> 服务由 cyclic 提供 </p>
-   <p> 服务使用了NodeJS的库： MathJax@3, sharp </p>
+   <p> 服务使用了NodeJS的库： MathJax@3, sharp, express </p>
    <p>NodeJS ${process.version}</p>
 </body>
 </html>`
@@ -92,7 +92,12 @@ router.get("/png/*", (req,res)=>{
     params: req.params
   })
   .end()*/
-  equ2pic(req.params[0], {format: "png" }, (err, result)=>{
+    if(req.query.height){
+	height=Number(req.query.height)
+    }else{
+	height=200
+    }
+    equ2pic(req.params[0], {format: "png", height:height }, (err, result)=>{
     //var html = "PNG?"+png+"<br/> get formula: "+formula
     res.status(result.statusCode).set(result.headers)
     if(result.isBase64Encoded){
@@ -110,7 +115,12 @@ router.get("/jpeg/*", (req,res)=>{
     params: req.params
   })
   .end()*/
-  equ2pic(req.params[0], {format: "jpg" }, (err, result)=>{
+    if(req.query.height){
+	height=Number(req.query.height)
+    }else{
+	height=200
+    }
+    equ2pic(req.params[0], {format: "jpg", height:height }, (err, result)=>{
     //var html = "PNG?"+png+"<br/> get formula: "+formula
     res.status(result.statusCode).set(result.headers)
     if(result.isBase64Encoded){
@@ -143,7 +153,17 @@ router.get("/*", (req,res)=>{
     params: req.params
   })
   .end()*/
-  equ2pic(req.params[0], {}, (err, result)=>{
+    if(req.query.height){
+	height=Number(req.query.height)
+    }else{
+	height=200
+    }
+    if(req.query.format){
+	format=req.query.format
+    }else{
+	format=null
+    }
+    equ2pic(req.params[0], {format:format, height:height}, (err, result)=>{
     //var html = "PNG?"+png+"<br/> get formula: "+formula
     res.status(result.statusCode).set(result.headers)
     if(result.isBase64Encoded){
